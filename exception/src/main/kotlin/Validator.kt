@@ -4,62 +4,58 @@ abstract class Validator<T> {
 
 class NameValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
-        val list = ArrayList<ErrorCode>()
         val str = value?.trim()
 
         if (str == null || str.isEmpty())
-            return listOf(ErrorCode.INVALID_CHARACTER)
+            return listOf(ErrorCode.EMPTY_LINE)
         if (str.length > 16)
-            list.add(ErrorCode.INVALID_LENGTH)
+            return listOf(ErrorCode.INVALID_LENGTH)
         if (!str.matches("[ЁёА-я]+".toRegex()))
-            list.add(ErrorCode.INVALID_CHARACTER)
-        return list
+            return listOf(ErrorCode.INVALID_CHARACTER)
+        return listOf()
     }
 }
 
 class PhoneValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
-        val list = ArrayList<ErrorCode>()
         val str = value?.trim()
 
         if (str == null || str.isEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length != 11)
-            list.add(ErrorCode.INVALID_LENGTH)
-        if (!str.matches("\\d+".toRegex()))
-            list.add(ErrorCode.INVALID_CHARACTER)
+            return listOf(ErrorCode.INVALID_LENGTH)
+        if (!str.matches("[0-9]+".toRegex()))
+            return listOf(ErrorCode.INVALID_CHARACTER)
         if (!str.startsWith('7') && !value.startsWith('8'))
-            list.add(ErrorCode.INVALID_PHONE_NUMBER_START)
-        return list
+            return listOf(ErrorCode.INVALID_FORMAT)
+        return listOf()
     }
 }
 
 class EmailValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
-        val list = ArrayList<ErrorCode>()
         val str = value?.trim()
 
         if (str == null || str.isEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length > 32)
-            list.add(ErrorCode.INVALID_LENGTH)
+            return listOf(ErrorCode.INVALID_LENGTH)
         if (!str.matches("[A-Za-z]+@[A-Za-z]+\\.[A-Za-z]+".toRegex()))
-            list.add(ErrorCode.INVALID_CHARACTER)
-        return list
+            return listOf(ErrorCode.INVALID_FORMAT)
+        return listOf()
     }
 }
 
 class SnilsValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
-        val list = ArrayList<ErrorCode>()
         val str = value?.trim()
 
         if (str == null || str.isEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length != 11)
-            list.add(ErrorCode.INVALID_LENGTH)
-        if (!str.matches("\\d+".toRegex()))
-            list.add(ErrorCode.INVALID_CHARACTER)
+            return listOf(ErrorCode.INVALID_LENGTH)
+        if (!str.matches("[0-9]+".toRegex()))
+            return listOf(ErrorCode.INVALID_CHARACTER)
 
         val controlNumberActual = str.substring(9, 11).toInt()
         var controlNumberExpected = 0
@@ -68,7 +64,7 @@ class SnilsValidator : Validator<String>() {
         controlNumberExpected %= 101
         if (controlNumberExpected == 100) controlNumberExpected = 0
         if (controlNumberActual != controlNumberExpected)
-            list.add(ErrorCode.INVALID_SNILS)
-        return list
+            return listOf(ErrorCode.INVALID_SNILS)
+        return listOf()
     }
 }
