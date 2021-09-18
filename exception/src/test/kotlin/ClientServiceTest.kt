@@ -24,7 +24,7 @@ class ClientServiceTest {
         }
         assertEquals(exception.errorCode[0], ErrorCode.EMPTY_LINE)
         assertEquals(exception.errorCode[1], ErrorCode.INVALID_LENGTH)
-        assertEquals(exception.errorCode[2], ErrorCode.INVALID_LENGTH)
+        assertEquals(exception.errorCode[2], ErrorCode.INVALID_FORMAT)
         assertEquals(exception.errorCode[3], ErrorCode.INVALID_FORMAT)
         assertEquals(exception.errorCode[4], ErrorCode.INVALID_SNILS)
     }
@@ -48,12 +48,12 @@ class ClientServiceTest {
     }
 
     @Test
-    fun `fail save client - phone validation error - invalid length`() {
+    fun `fail save client - phone validation error - invalid format2`() {
         val client = getClientFromJson("/fail/user_with_bad_phone.json")
         val exception = assertFailsWith<ValidationException>("Недопустимая длина у тел.номера") {
             clientService.saveClient(client)
         }
-        assertEquals(exception.errorCode[0], ErrorCode.INVALID_LENGTH)
+        assertEquals(exception.errorCode[0], ErrorCode.INVALID_FORMAT)
     }
 
     @Test

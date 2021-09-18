@@ -6,7 +6,7 @@ class NameValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
         val str = value?.trim()
 
-        if (str == null || str.isEmpty())
+        if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length > 16)
             return listOf(ErrorCode.INVALID_LENGTH)
@@ -20,13 +20,9 @@ class PhoneValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
         val str = value?.trim()
 
-        if (str == null || str.isEmpty())
+        if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
-        if (str.length != 11)
-            return listOf(ErrorCode.INVALID_LENGTH)
-        if (!str.matches("[0-9]+".toRegex()))
-            return listOf(ErrorCode.INVALID_CHARACTER)
-        if (!str.startsWith('7') && !value.startsWith('8'))
+        if (!str.matches("(7|8)[0-9]{10}$".toRegex()))
             return listOf(ErrorCode.INVALID_FORMAT)
         return listOf()
     }
@@ -36,7 +32,7 @@ class EmailValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
         val str = value?.trim()
 
-        if (str == null || str.isEmpty())
+        if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length > 32)
             return listOf(ErrorCode.INVALID_LENGTH)
@@ -50,7 +46,7 @@ class SnilsValidator : Validator<String>() {
     override fun validate(value: String?): List<ErrorCode> {
         val str = value?.trim()
 
-        if (str == null || str.isEmpty())
+        if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length != 11)
             return listOf(ErrorCode.INVALID_LENGTH)
