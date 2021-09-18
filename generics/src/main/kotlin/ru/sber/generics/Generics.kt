@@ -6,17 +6,16 @@ fun <A, B> compare(p1: Pair<A, B>, p2: Pair<A, B>): Boolean {
 }
 
 // 2.
-fun <Any: Comparable<Any>> countGreaterThan(anArray: Array<Any>, elem: Any): Int {
+fun <Any : Comparable<Any>> countGreaterThan(anArray: Array<Any>, elem: Any): Int {
     var count = 0
     for (i in anArray.indices) {
-        if (anArray[i] > elem)
-        count++
+        if (anArray[i] > elem) count++
     }
     return count
 }
 
 // 3.
-class Sorter<T: Comparable<T>> {
+class Sorter<T : Comparable<T>> {
     val list: MutableList<T> = mutableListOf()
 
     fun add(value: T) {
@@ -29,19 +28,20 @@ class Sorter<T: Comparable<T>> {
 class Stack<T> {
     private val list: MutableList<T> = mutableListOf()
 
-    fun push(elem: T) {
+    fun push(elem: T): T {
         list.add(elem)
+        return elem
     }
 
-    fun pop(): T {
-        return list.removeAt(list.size - 1)
+    fun pop(): T? {
+        return if (list.size > 0) list.removeAt(list.size - 1) else null
     }
 
     fun isEmpty(): Boolean {
-        return list.isEmpty()
+        return list.size == 0
     }
 
-    fun peek(): T{
-        return list[list.size - 1]
+    fun peek(): T? {
+        return if (list.size > 0) list[list.size - 1] else null
     }
 }

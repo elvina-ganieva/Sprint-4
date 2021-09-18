@@ -39,5 +39,6 @@ class GenericsTest {
         assertFalse(stack.isEmpty())
         assertEquals(5, stack.peek())
         assertEquals(5, stack.pop())
+        assertNull(stack.pop())
     }
 }
