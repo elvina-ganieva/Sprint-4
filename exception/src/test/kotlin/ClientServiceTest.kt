@@ -23,9 +23,9 @@ class ClientServiceTest {
             clientService.saveClient(client)
         }
         assertEquals(exception.errorCode[0], ErrorCode.EMPTY_LINE)
-        assertEquals(exception.errorCode[1], ErrorCode.INVALID_LENGTH)
-        assertEquals(exception.errorCode[2], ErrorCode.INVALID_FORMAT)
-        assertEquals(exception.errorCode[3], ErrorCode.INVALID_FORMAT)
+        assertEquals(exception.errorCode[1], ErrorCode.INVALID_NAME_FORMAT)
+        assertEquals(exception.errorCode[2], ErrorCode.INVALID_PHONE_FORMAT)
+        assertEquals(exception.errorCode[3], ErrorCode.INVALID_EMAIL_FORMAT)
         assertEquals(exception.errorCode[4], ErrorCode.INVALID_SNILS)
     }
 
@@ -53,7 +53,7 @@ class ClientServiceTest {
         val exception = assertFailsWith<ValidationException>("Недопустимая длина у тел.номера") {
             clientService.saveClient(client)
         }
-        assertEquals(exception.errorCode[0], ErrorCode.INVALID_FORMAT)
+        assertEquals(exception.errorCode[0], ErrorCode.INVALID_PHONE_FORMAT)
     }
 
     @Test
@@ -62,7 +62,7 @@ class ClientServiceTest {
         val exception = assertFailsWith<ValidationException>("Недопустимый формат у тел.номера") {
             clientService.saveClient(client)
         }
-        assertEquals(exception.errorCode[0], ErrorCode.INVALID_FORMAT)
+        assertEquals(exception.errorCode[0], ErrorCode.INVALID_PHONE_FORMAT)
     }
 
     @Test
@@ -71,7 +71,7 @@ class ClientServiceTest {
         val exception = assertFailsWith<ValidationException>("Недопустимый формат у почты") {
             clientService.saveClient(client)
         }
-        assertEquals(exception.errorCode[0], ErrorCode.INVALID_FORMAT)
+        assertEquals(exception.errorCode[0], ErrorCode.INVALID_EMAIL_FORMAT)
     }
 
     @Test

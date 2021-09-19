@@ -8,10 +8,8 @@ class NameValidator : Validator<String>() {
 
         if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
-        if (str.length > 16)
-            return listOf(ErrorCode.INVALID_LENGTH)
-        if (!str.matches("[ЁёА-я]+".toRegex()))
-            return listOf(ErrorCode.INVALID_CHARACTER)
+        if (!str.matches("[ЁёА-я]{1,16}$".toRegex()))
+            return listOf(ErrorCode.INVALID_NAME_FORMAT)
         return listOf()
     }
 }
@@ -22,8 +20,8 @@ class PhoneValidator : Validator<String>() {
 
         if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
-        if (!str.matches("(7|8)[0-9]{10}$".toRegex()))
-            return listOf(ErrorCode.INVALID_FORMAT)
+        if (!str.matches("(7|8)([0-9]{10})$".toRegex()))
+            return listOf(ErrorCode.INVALID_PHONE_FORMAT)
         return listOf()
     }
 }
@@ -35,9 +33,9 @@ class EmailValidator : Validator<String>() {
         if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
         if (str.length > 32)
-            return listOf(ErrorCode.INVALID_LENGTH)
-        if (!str.matches("[A-Za-z]+@[A-Za-z]+\\.[A-Za-z]+".toRegex()))
-            return listOf(ErrorCode.INVALID_FORMAT)
+            return listOf(ErrorCode.INVALID_EMAIL_FORMAT)
+        if (!str.matches("([A-Za-z]+@[A-Za-z]+\\.[A-Za-z]+)$".toRegex()))
+            return listOf(ErrorCode.INVALID_EMAIL_FORMAT)
         return listOf()
     }
 }
@@ -48,10 +46,8 @@ class SnilsValidator : Validator<String>() {
 
         if (str.isNullOrEmpty())
             return listOf(ErrorCode.EMPTY_LINE)
-        if (str.length != 11)
-            return listOf(ErrorCode.INVALID_LENGTH)
-        if (!str.matches("[0-9]+".toRegex()))
-            return listOf(ErrorCode.INVALID_CHARACTER)
+        if (!str.matches("[0-9]{11}$".toRegex()))
+            return listOf(ErrorCode.INVALID_SNILS)
 
         val controlNumberActual = str.substring(9, 11).toInt()
         var controlNumberExpected = 0
