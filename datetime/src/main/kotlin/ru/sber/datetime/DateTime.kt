@@ -7,10 +7,11 @@ import java.util.*
 // 1.
 fun getZonesWithNonDivisibleByHourOffset(): Set<String> {
     val zonesSet = mutableSetOf<String>()
+    val localDateTime = LocalDateTime.now()
 
     for (item in ZoneId.getAvailableZoneIds()) {
         val id = ZoneId.of(item)
-        val zonedDateTime = LocalDateTime.now().atZone(id)
+        val zonedDateTime = localDateTime.atZone(id)
         val zoneOffset = zonedDateTime.offset
         if (zoneOffset.totalSeconds % 3600 != 0)
             zonesSet.add(item)
@@ -28,6 +29,7 @@ fun getLastInMonthDayWeekList(year: Int): List<String> {
         list.add(date.dayOfWeek.name)
     }
     return list
+
 }
 
 // 3.
