@@ -6,7 +6,7 @@ fun <A, B> compare(p1: Pair<A, B>, p2: Pair<A, B>): Boolean {
 }
 
 // 2.
-fun <Any : Comparable<Any>> countGreaterThan(anArray: Array<Any>, elem: Any): Int {
+fun <T : Comparable<T>> countGreaterThan(anArray: Array<T>, elem: T): Int {
     var count = 0
     for (i in anArray.indices) {
         if (anArray[i] > elem) count++
